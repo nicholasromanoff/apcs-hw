@@ -16,39 +16,49 @@ public class QuickSort {
 		else {
 			// selects pivot randomly from with a
 			Random random = new Random();
-			Integer pivot = a[random.nextInt(a.length)];
+			Integer pivotInt = a[random.nextInt(a.length)];
 			// partitions the list into lower and upper halves
 			ArrayList<Integer> lower = new ArrayList();
+			ArrayList<Integer> pivot = new ArrayList();
 			ArrayList<Integer> higher = new ArrayList();
 			for (Integer x: a) {
-				if (x <= pivot) {
+				if (x < pivotInt) {
 					lower.add(x);
 				}
-				else {
+				else if (x > pivotInt) {
 					higher.add(x);
+				}
+				else {
+					pivot.add(x);
 				}
 			}
 			// changes those arraylists back into arrays
 			Integer[] lowArray = lower.toArray(new Integer[lower.size()]);
 			Integer[] highArray = higher.toArray(new Integer[higher.size()]);
+			Integer[] pivotArray = pivot.toArray(new Integer[pivot.size()]);
 			// runs the method recursively on each of those halves
 			Integer[] r1 = quickSort(lowArray);					
 			Integer[] r2 = quickSort(highArray);
 			// merges the halves and returns
-			return merge(r1, r2);
+			return merge(r1, pivotArray, r2);
 		}
 	}
 
 	// helper function for merging arrays
-	public static Integer[] merge(Integer[] low, Integer[] high) {
-		Integer[] merged = new Integer[low.length + high.length];
+	public static Integer[] merge(Integer[] low, Integer[] pivot, Integer[] high) {
+		Integer[] merged = new Integer[low.length + pivot.length + high.length];
 		int index = 0;
-		for (int x = index; x < low.length; x++) {
-			merged[x] = low[x];
+		for (int x : low) {
+			merged[index] = x;
 			index++;
 		}
-		for (int x = low.length; x < merged.length; x++) {
-			merged[x] = high[x - low.length];
+		for (int x : pivot) {
+			merged[index] = x;
+			index++;
+		}
+		for (int x : high) {
+			merged[index] = x;
+			index++;
 		}	
 		return merged;
 	}
@@ -62,19 +72,27 @@ public class QuickSort {
 		System.out.println(printStr += " ]");
 	}
 
+	// driver helper function for testing quickSort
+	public Integer[] randomArray() {
+		Integer[] array = new Integer[(int)(Math.random() * 20) + 5];
+		for (int x = 0; x < array.length; x++) {
+			array[x] = (int)(Math.random() * 100);
+		}
+		return array;
+	}
+
 	// driver for testing
 	public static void main(String[] args) {
 
 		QuickSort quicky = new QuickSort();
 		System.out.println("\nTesting QuickSort...");
-		Integer[] r = {21, 65, 34, 99, 5, 6, 42, 88, 11, 31, 17};
-		System.out.println("\nBefore QuickSort:");
-		quicky.printArray(r);
-		System.out.println("After QuickSort:");
-		quicky.printArray(quickSort(r));
-
-	// Note: code doesn't seem to work with arrays containing duplicates
-		
-
+		for (int x = 0; x < 10; x++) {
+			Integer[] r = quicky.randomArray();
+			System.out.println("\nBefore QuickSort:");
+			quicky.printArray(r);
+			System.out.println("After QuickSort:");
+			quicky.printArray(quickSort(r));
+		System.out.println();
+		}
 	}
 }

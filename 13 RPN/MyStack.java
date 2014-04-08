@@ -30,7 +30,6 @@ public class MyStack {
 
     public String pop() {
 	String s = stack[top];
-	stack[top] = null;
 	top--;
 	return s;
     }

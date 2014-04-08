@@ -18,7 +18,7 @@ public class RPN {
 		System.out.println("\nWelcome to the RPN Postfix Calculator!");
 		System.out.println("\nfollow the instructions to input information");
 		System.out.println("return the word 'off' to close the program");
-		System.out.println("return the word 'clear' clear your data");
+		System.out.println("return the word 'clear' to clear your data");
 		System.out.println("\nplease type and then press Enter: \n");
 		while (true) {
 			Scanner sc = new Scanner(System.in);

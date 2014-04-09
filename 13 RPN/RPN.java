@@ -1,6 +1,6 @@
 // Nicholas Romanoff
 // Period One
-// Homework #13 Stack with Array
+// Homework #13 RPN
 // 2014-04-07
 
 import java.util.Scanner;
@@ -54,8 +54,8 @@ public class RPN {
 		else {
 			result = termA / termB;
 		}
-		stack.push(termA + " " + operator + " " + termB + " = " + result);
-		System.out.println(stack);
+		stack.push(result);
+		System.out.println(termA + " " + operator + " " + termB + " = " + result);
 	}
 
 	// so little code driver file seems unnecessary
